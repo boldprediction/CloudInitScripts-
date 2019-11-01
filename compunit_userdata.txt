@@ -1,0 +1,38 @@
+Content-Type: multipart/mixed; boundary="//"
+MIME-Version: 1.0
+
+--//
+Content-Type: text/cloud-config; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment; filename="cloud-config.txt"
+
+#cloud-config
+cloud_final_modules:
+- [scripts-user, always]
+
+--//
+Content-Type: text/x-shellscript; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment; filename="userdata.txt"
+
+#!/bin/bash
+/bin/echo "Hello World" >> /tmp/testfile.txt
+ 
+FSLDIR=/usr/local/fsl
+PATH=${FSLDIR}/bin:${PATH}
+export FSLDIR PATH
+. ${FSLDIR}/etc/fslconf/fsl.sh
+
+source /home/ubuntu/compunit/venv/bin/activate
+which python
+
+$FSLDIR
+
+mount -t nfs4 -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2,noresvport fs-a4cae0dd.efs.us-east-2.amazonaws.com:/ home/ubuntu/compunit/data
+
+python3 /home/ubuntu/compunit/src/main.py &
+
+cat > /home/ubuntu/compunit/test.txt
+--//
