@@ -1,6 +1,6 @@
 # CloudInitScripts-
 
-To add this into the CompUnit instance, follow these steps -
+To add this into the CompUnit instance, follow these steps from the Amazon AWS EC2 Dashboard-
 1. Turn off the instance
 2. Right click on the instance 
 3. Click on Instance Settings 
